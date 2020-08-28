@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comments</title>
+</head>
+
+<body>
+
+	<a href="/">Back</a>
+
+	<!-- Display current post with title and date -->
+	<div class="post">
+		<h3>{{ post.title }}</h3>
+		<p>{{ post.content }}</p>
+		<p>{{ post.date }}</p>
+	</div>
+
+	<!-- Option to add new comment -->
+	<h4>Add a new comment</h4>
+	<form action="." method="POST">
+		{{ form.as_p }}
+		{% csrf_token %}
+		<p><input type="submit" value="Add comment"></p>
+	</form>
+
+	<!-- Display existing comments with author and date, if comments exists -->
+	{% for comment in post.comments.all %}
+    <div class="comment">
+    	<p>{{ comment.date }}</p>
+      <p>{{ comment.content }}</p>
+      <strong>{{ comment.name }}</strong>
+    </div>
+  {% empty %}
+  	<p>There are no comments</p>
+	{% endfor %}
+
+</body>
+</html>	
